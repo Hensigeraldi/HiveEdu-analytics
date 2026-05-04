@@ -1,0 +1,618 @@
+Berikut versi lengkap yang bisa kamu copy ke file `.txt` atau `README_SETUP.md`.
+
+```text
+HIVEEDU PROJECT SHARING & LOCAL SETUP GUIDE
+==========================================
+
+Project Name:
+HiveEdu Web-Based E-Report System Integrated with Learning Analytics
+
+Stack:
+- Frontend: Next.js
+- Backend: NestJS
+- Database: PostgreSQL with TypeORM
+- Security: JWT & RBAC
+- Roles: ADMIN, TEACHER, USER
+
+Final MLR Formula:
+Y = a + b1X1 + b2X2 + b3X3
+
+Where:
+X1 = attendance percentage
+X2 = average tryout score
+X3 = teacher objective score
+Y = predicted next exam score
+
+
+1. WHAT TO SHARE
+================
+
+Do not share the full raw project folder directly if it contains node_modules, .next, dist, or .env files.
+
+Create a clean sharing folder, for example:
+
+hiveedu-eraport-share/
+├─ backend-api/
+├─ frontend-web/
+├─ database/
+│  └─ hiveedu_eraport_dump.sql
+└─ README_SETUP.txt
+
+
+2. FILES AND FOLDERS TO INCLUDE
+===============================
+
+Include these backend files/folders:
+
+backend-api/
+├─ src/
+├─ package.json
+├─ package-lock.json
+├─ nest-cli.json
+├─ tsconfig.json
+├─ tsconfig.build.json
+├─ .env.example
+└─ README_BACKEND.md optional
+
+Include these frontend files/folders:
+
+frontend-web/
+├─ src/
+├─ public/
+├─ package.json
+├─ package-lock.json
+├─ next.config.ts or next.config.js if available
+├─ tsconfig.json
+├─ postcss.config.mjs or postcss config if available
+├─ tailwind.config.ts or tailwind config if available
+├─ .env.local.example
+└─ README_FRONTEND.md optional
+
+Include database dump:
+
+database/
+└─ hiveedu_eraport_dump.sql
+
+Also include:
+
+README_SETUP.txt
+
+
+3. FILES AND FOLDERS NOT TO INCLUDE
+===================================
+
+Do not include:
+
+backend-api/node_modules/
+backend-api/dist/
+backend-api/.env
+backend-api/*.log
+
+frontend-web/node_modules/
+frontend-web/.next/
+frontend-web/out/
+frontend-web/.env.local
+frontend-web/*.log
+
+.git/
+.vscode/ optional
+.env
+.env.local
+package-lock backup files optional
+temporary files
+
+
+4. WHY NODE_MODULES SHOULD NOT BE SHARED
+========================================
+
+Do not send node_modules.
+
+Reasons:
+- node_modules can contain tens of thousands of files.
+- Compressing node_modules makes ZIP creation very slow.
+- The ZIP file becomes very large.
+- Dependencies can be restored from package.json and package-lock.json.
+- Your friend only needs to run npm install in backend-api and frontend-web.
+
+As long as package.json and package-lock.json are included, your friend can restore all libraries.
+
+
+5. HOW TO CREATE A CLEAN SHARE FOLDER
+=====================================
+
+Open CMD and run:
+
+mkdir D:\hiveedu-share
+mkdir D:\hiveedu-share\backend-api
+mkdir D:\hiveedu-share\frontend-web
+mkdir D:\hiveedu-share\database
+
+Copy backend without node_modules and dist:
+
+robocopy D:\hiveedu-eraport\backend-api D:\hiveedu-share\backend-api /E /XD node_modules dist /XF .env *.log
+
+Copy frontend without node_modules and .next:
+
+robocopy D:\hiveedu-eraport\frontend-web D:\hiveedu-share\frontend-web /E /XD node_modules .next out /XF .env.local *.log
+
+Copy database dump:
+
+copy D:\hiveedu_eraport_dump.sql D:\hiveedu-share\database\
+
+Then compress D:\hiveedu-share into ZIP.
+
+
+6. HOW TO EXPORT POSTGRESQL DATABASE
+====================================
+
+If pg_dump is recognized, run:
+
+pg_dump -U postgres -h localhost -p 5432 -d hiveedu_eraport -f D:\hiveedu_eraport_dump.sql
+
+If pg_dump is not recognized, use the full PostgreSQL path.
+
+For PostgreSQL 16:
+
+"C:\Program Files\PostgreSQL\16\bin\pg_dump.exe" -U postgres -h localhost -p 5432 -d hiveedu_eraport -f D:\hiveedu_eraport_dump.sql
+
+For PostgreSQL 17:
+
+"C:\Program Files\PostgreSQL\17\bin\pg_dump.exe" -U postgres -h localhost -p 5432 -d hiveedu_eraport -f D:\hiveedu_eraport_dump.sql
+
+After export, check that the file exists:
+
+dir D:\hiveedu_eraport_dump.sql
+
+If the file exists, copy it into:
+
+D:\hiveedu-share\database\hiveedu_eraport_dump.sql
+
+
+7. BACKEND ENV EXAMPLE
+======================
+
+Create this file:
+
+backend-api/.env.example
+
+Content:
+
+DB_HOST=localhost
+DB_PORT=5432
+DB_USERNAME=postgres
+DB_PASSWORD=your_postgres_password
+DB_DATABASE=hiveedu_eraport
+JWT_SECRET=hiveedu_secret_key
+PORT=3000
+
+
+Important:
+Do not share your real backend-api/.env file.
+Only share .env.example.
+
+
+8. FRONTEND ENV EXAMPLE
+=======================
+
+Create this file:
+
+frontend-web/.env.local.example
+
+Content:
+
+NEXT_PUBLIC_API_URL=http://localhost:3000
+
+
+Important:
+Do not share your real frontend-web/.env.local file.
+Only share .env.local.example.
+
+
+9. SETUP GUIDE FOR YOUR FRIEND
+==============================
+
+After your friend receives the ZIP, they should:
+
+1. Extract ZIP.
+
+2. Install requirements:
+- Node.js 20 or newer
+- PostgreSQL 16 or newer
+- npm
+
+3. Create PostgreSQL database:
+
+createdb -U postgres -h localhost -p 5432 hiveedu_eraport
+
+If createdb is not recognized:
+
+"C:\Program Files\PostgreSQL\16\bin\createdb.exe" -U postgres -h localhost -p 5432 hiveedu_eraport
+
+4. Import database dump:
+
+psql -U postgres -h localhost -p 5432 -d hiveedu_eraport -f database\hiveedu_eraport_dump.sql
+
+If psql is not recognized:
+
+"C:\Program Files\PostgreSQL\16\bin\psql.exe" -U postgres -h localhost -p 5432 -d hiveedu_eraport -f database\hiveedu_eraport_dump.sql
+
+
+10. BACKEND SETUP ON FRIEND'S LAPTOP
+====================================
+
+Open terminal in project folder:
+
+cd backend-api
+
+Copy env example:
+
+copy .env.example .env
+
+Edit .env and set PostgreSQL password according to friend's local PostgreSQL:
+
+DB_HOST=localhost
+DB_PORT=5432
+DB_USERNAME=postgres
+DB_PASSWORD=your_postgres_password
+DB_DATABASE=hiveedu_eraport
+JWT_SECRET=hiveedu_secret_key
+PORT=3000
+
+Install dependencies:
+
+npm install
+
+Run backend:
+
+npm run start:dev
+
+Backend should run on:
+
+http://localhost:3000
+
+To test backend:
+
+curl.exe http://localhost:3000
+
+A response such as "Hello World!" means backend is running.
+
+
+11. FRONTEND SETUP ON FRIEND'S LAPTOP
+=====================================
+
+Open another terminal:
+
+cd frontend-web
+
+Copy env example:
+
+copy .env.local.example .env.local
+
+Edit .env.local:
+
+NEXT_PUBLIC_API_URL=http://localhost:3000
+
+Install dependencies:
+
+npm install
+
+Run frontend on port 3001:
+
+npm run dev -- -p 3001
+
+Open browser:
+
+http://localhost:3001/login
+
+
+12. DEMO ACCOUNTS
+=================
+
+If your friend imports the database dump or runs the seeder, these accounts should be available:
+
+ADMIN:
+username: admin
+password: password123
+
+TEACHER:
+username: teacher1
+password: password123
+
+TEACHER:
+username: teacher2
+password: password123
+
+USER:
+username: user1
+password: password123
+
+USER:
+username: user2
+password: password123
+
+USER:
+username: user3
+password: password123
+
+USER:
+username: user4
+password: password123
+
+USER:
+username: user5
+password: password123
+
+USER:
+username: user6
+password: password123
+
+USER:
+username: user7
+password: password123
+
+USER:
+username: user8
+password: password123
+
+USER:
+username: user9
+password: password123
+
+USER:
+username: user10
+password: password123
+
+
+13. OPTIONAL: RUN SEEDER INSTEAD OF DATABASE DUMP
+=================================================
+
+If your friend does not need the exact same data and only needs demo data, they can run the seeder after backend is running:
+
+curl.exe -X POST http://localhost:3000/seeder/run
+
+If successful, it should return a message like:
+
+HiveEdu final demo database seeded successfully with role, attendance, and academic record coverage.
+
+Note:
+Using seeder creates demo data.
+Using database dump restores the exact database state you exported.
+
+
+14. PORT RULES
+==============
+
+Use these ports:
+
+Backend NestJS:
+http://localhost:3000
+
+Frontend Next.js:
+http://localhost:3001
+
+Do not run frontend on port 3000 because backend uses port 3000.
+
+If port 3000 is already in use, check:
+
+netstat -ano | findstr :3000
+
+Find the PID on the LISTENING line, then kill it:
+
+taskkill /PID PID_NUMBER /F
+
+Example:
+
+taskkill /PID 18000 /F
+
+Then run backend again:
+
+cd /d D:\hiveedu-eraport\backend-api
+npm run start:dev
+
+
+15. COMMON ERRORS AND FIXES
+===========================
+
+Error:
+EADDRINUSE: address already in use :::3000
+
+Meaning:
+Port 3000 is already used by another process.
+
+Fix:
+
+netstat -ano | findstr :3000
+taskkill /PID PID_NUMBER /F
+
+Then run backend again.
+
+
+Error:
+pg_dump is not recognized
+
+Meaning:
+PostgreSQL bin folder is not in PATH.
+
+Fix:
+Use full path:
+
+"C:\Program Files\PostgreSQL\16\bin\pg_dump.exe" -U postgres -h localhost -p 5432 -d hiveedu_eraport -f D:\hiveedu_eraport_dump.sql
+
+
+Error:
+psql is not recognized
+
+Fix:
+Use full path:
+
+"C:\Program Files\PostgreSQL\16\bin\psql.exe" -U postgres -h localhost -p 5432 -d hiveedu_eraport -f database\hiveedu_eraport_dump.sql
+
+
+Error:
+Invalid credentials
+
+Possible causes:
+- Database was not imported.
+- Seeder was not run.
+- Backend points to wrong database.
+- .env DB password is wrong.
+
+Fix:
+Check backend-api/.env:
+
+DB_HOST=localhost
+DB_PORT=5432
+DB_USERNAME=postgres
+DB_PASSWORD=your_postgres_password
+DB_DATABASE=hiveedu_eraport
+
+Then restart backend.
+
+
+Error:
+Frontend cannot reach backend
+
+Fix:
+Check frontend-web/.env.local:
+
+NEXT_PUBLIC_API_URL=http://localhost:3000
+
+Then restart frontend.
+
+
+16. FINAL PROJECT FEATURES
+==========================
+
+HiveEdu includes:
+
+- Authentication with JWT
+- RBAC roles: ADMIN, TEACHER, USER
+- User Management
+- Academic Records
+- Attendance
+- Analytics Engine
+- Tutor Analytics
+- User Dashboard
+- Teacher Dashboard
+- Settings
+- Audit Logs
+- Intervention Notes
+- Dark Mode and Light Mode
+- Mobile responsive dashboard layout
+- PDF e-raport export
+- Excel analytics export
+- MLR prediction
+- MSE validation
+- Model Explainability
+
+Final MLR Formula:
+
+Y = a + b1X1 + b2X2 + b3X3
+
+Variables:
+X1 = attendance percentage
+X2 = average tryout score
+X3 = teacher objective score
+Y = predicted next exam score
+
+
+17. ROLE ACCESS SUMMARY
+=======================
+
+ADMIN:
+- Overview
+- Academic Records
+- Attendance
+- Analytics Engine
+- Tutor Analytics
+- User Management
+- Audit Logs
+- Settings
+- Export Excel
+- Manage intervention notes
+
+TEACHER:
+- Overview
+- Academic Records
+- Attendance
+- Tutor Analytics
+- Settings
+- Manage intervention notes for assigned user accounts only
+
+USER:
+- My E-Raport
+- Academic Records read-only
+- Attendance read-only
+- Academic History
+- Settings
+- Download own PDF e-raport
+
+
+18. ZIP CREATION RECOMMENDATION
+===============================
+
+Recommended final ZIP name:
+
+hiveedu-eraport-share.zip
+
+Recommended source folder:
+
+D:\hiveedu-share
+
+Compress this folder only:
+
+D:\hiveedu-share
+
+Do not compress:
+
+D:\hiveedu-eraport
+
+unless you already removed node_modules, .next, dist, .env, and logs.
+
+
+19. QUICK START COMMAND SUMMARY
+===============================
+
+Backend:
+
+cd backend-api
+copy .env.example .env
+npm install
+npm run start:dev
+
+Frontend:
+
+cd frontend-web
+copy .env.local.example .env.local
+npm install
+npm run dev -- -p 3001
+
+Database import:
+
+createdb -U postgres -h localhost -p 5432 hiveedu_eraport
+psql -U postgres -h localhost -p 5432 -d hiveedu_eraport -f database\hiveedu_eraport_dump.sql
+
+Open app:
+
+http://localhost:3001/login
+
+Login:
+
+admin / password123
+teacher1 / password123
+user1 / password123
+
+
+20. IMPORTANT NOTES
+===================
+
+- Do not share real .env files.
+- Do not share node_modules.
+- Do not share .next or dist.
+- Do not run backend and frontend on the same port.
+- Backend must use port 3000.
+- Frontend should use port 3001.
+- Database dump is needed if your friend wants the same exact data.
+- Seeder is enough if your friend only needs demo data.
+- npm install is required after extracting the ZIP.
+```

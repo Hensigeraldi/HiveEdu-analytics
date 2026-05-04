@@ -1,0 +1,14 @@
+# Abaikan folder dependensi
+node_modules/
+
+# Abaikan hasil build
+dist/
+.next/
+out/
+
+# Abaikan file environment yang rahasia
+.env
+.env.local
+
+# Abaikan file log
+*.log
