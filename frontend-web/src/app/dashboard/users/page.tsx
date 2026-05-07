@@ -103,7 +103,7 @@ export default function UserManagementPage() {
       setIsLoadingUsers(true);
       setPageError("");
 
-      const response = await fetch("http://localhost:3000/users", {
+     const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/users`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -207,10 +207,10 @@ export default function UserManagementPage() {
     try {
       setIsSubmitting(true);
 
-      const response = await fetch(
+     const response = await fetch(
         isEditing
-          ? `http://localhost:3000/users/${editingUserId}`
-          : "http://localhost:3000/users",
+          ? `${process.env.NEXT_PUBLIC_API_URL}/users/${editingUserId}`
+          : `${process.env.NEXT_PUBLIC_API_URL}/users`,
         {
           method: isEditing ? "PATCH" : "POST",
           headers: {
@@ -244,7 +244,7 @@ export default function UserManagementPage() {
     }
 
     try {
-      const response = await fetch(`http://localhost:3000/users/${id}`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/users/${id}`, {
         method: "DELETE",
         headers: {
           Authorization: `Bearer ${token}`,

@@ -385,7 +385,7 @@ export default function DashboardPage() {
     try {
       setIsExportingAnalyticsReport(true);
 
-      const response = await fetch("http://localhost:3000/analytics/export", {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/analytics/export`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -628,25 +628,17 @@ export default function DashboardPage() {
 
   const fetchUserAnalytics = async (userId: string, token: string) => {
     const [featureResponse, recordsResponse, selfAnalyticsResponse, attendanceResponse] = await Promise.all([
-      fetch(`http://localhost:3000/users/${userId}/features`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
+      fetch(`${process.env.NEXT_PUBLIC_API_URL}/users/${userId}/features`, {
+        headers: { Authorization: `Bearer ${token}` },
       }),
-      fetch(`http://localhost:3000/records/user/${userId}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
+      fetch(`${process.env.NEXT_PUBLIC_API_URL}/records/user/${userId}`, {
+        headers: { Authorization: `Bearer ${token}` },
       }),
-      fetch("http://localhost:3000/analytics/me", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
+      fetch(`${process.env.NEXT_PUBLIC_API_URL}/analytics/me`, {
+        headers: { Authorization: `Bearer ${token}` },
       }),
-      fetch(`http://localhost:3000/attendance/user/${userId}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
+      fetch(`${process.env.NEXT_PUBLIC_API_URL}/attendance/user/${userId}`, {
+        headers: { Authorization: `Bearer ${token}` },
       }),
     ]);
 
@@ -757,15 +749,11 @@ export default function DashboardPage() {
 
   const fetchAdminDashboardData = async (token: string) => {
     const [usersResponse, runHistoryResponse] = await Promise.all([
-      fetch("http://localhost:3000/users", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
+      fetch(`${process.env.NEXT_PUBLIC_API_URL}/users`, {
+        headers: { Authorization: `Bearer ${token}` },
       }),
-      fetch("http://localhost:3000/analytics/mlr-run-history", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
+      fetch(`${process.env.NEXT_PUBLIC_API_URL}/analytics/mlr-run-history`, {
+        headers: { Authorization: `Bearer ${token}` },
       }),
     ]);
 
@@ -791,15 +779,11 @@ export default function DashboardPage() {
     const userRows = await Promise.all(
       userAccounts.map(async (user) => {
         const [featureResponse, recordsResponse] = await Promise.all([
-          fetch(`http://localhost:3000/users/${user.id}/features`, {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
+          fetch(`${process.env.NEXT_PUBLIC_API_URL}/users/${user.id}/features`, {
+            headers: { Authorization: `Bearer ${token}` },
           }),
-          fetch(`http://localhost:3000/records/user/${user.id}`, {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
+          fetch(`${process.env.NEXT_PUBLIC_API_URL}/records/user/${user.id}`, {
+            headers: { Authorization: `Bearer ${token}` },
           }),
         ]);
 
@@ -834,7 +818,7 @@ export default function DashboardPage() {
 
         if (featureData.tryoutCount >= 5 && teacherObjectiveScore !== null) {
           const predictionResponse = await fetch(
-            "http://localhost:3000/analytics/predict-performance",
+            `${process.env.NEXT_PUBLIC_API_URL}/analytics/predict-performance`,
             {
               method: "POST",
               headers: {
@@ -886,10 +870,8 @@ export default function DashboardPage() {
   };
 
   const fetchGlobalAnalytics = async (token: string) => {
-    const response = await fetch("http://localhost:3000/analytics/global", {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/analytics/global`, {
+      headers: { Authorization: `Bearer ${token}` },
     });
 
     if (!response.ok) {
@@ -902,7 +884,7 @@ export default function DashboardPage() {
 
   const fetchTeacherDashboardData = async (token: string, userId: string) => {
     try {
-      const response = await fetch("http://localhost:3000/analytics/tutors", {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/analytics/tutors`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       if (response.ok) {

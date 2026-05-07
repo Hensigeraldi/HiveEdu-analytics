@@ -83,12 +83,12 @@ export default function AnalyticsEnginePage() {
       setConfigError("");
 
       const [configResponse, runHistoryResponse] = await Promise.all([
-        fetch("http://localhost:3000/analytics/config", {
+        fetch(`${process.env.NEXT_PUBLIC_API_URL}/analytics/config`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
         }),
-        fetch("http://localhost:3000/analytics/mlr-run-history", {
+        fetch(`${process.env.NEXT_PUBLIC_API_URL}/analytics/mlr-run-history`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -157,7 +157,7 @@ export default function AnalyticsEnginePage() {
     try {
       setIsSavingConfig(true);
 
-      const response = await fetch("http://localhost:3000/analytics/config", {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/analytics/config`, {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",
@@ -197,7 +197,7 @@ export default function AnalyticsEnginePage() {
     try {
       setIsExportingWorkbook(true);
 
-      const response = await fetch("http://localhost:3000/analytics/export", {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/analytics/export`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

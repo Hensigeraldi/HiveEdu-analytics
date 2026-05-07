@@ -54,7 +54,7 @@ export default function InterventionModal({
   const fetchExistingIntervention = async () => {
     try {
       const token = localStorage.getItem('token');
-      const res = await fetch(`http://localhost:3000/interventions/user/${userId}`, {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/interventions/user/${userId}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       if (res.ok) {
@@ -94,8 +94,8 @@ export default function InterventionModal({
       };
 
       const url = existingId 
-        ? `http://localhost:3000/interventions/${existingId}`
-        : `http://localhost:3000/interventions`;
+        ? `${process.env.NEXT_PUBLIC_API_URL}/interventions/${existingId}`
+        : `${process.env.NEXT_PUBLIC_API_URL}/interventions`;
         
       const method = existingId ? 'PATCH' : 'POST';
 

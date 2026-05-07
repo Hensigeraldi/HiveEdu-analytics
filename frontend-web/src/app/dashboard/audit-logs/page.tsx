@@ -113,7 +113,7 @@ export default function AuditLogsPage() {
       }
 
       const response = await fetch(
-        `http://localhost:3000/audit-logs${params.toString() ? `?${params.toString()}` : ""}`,
+        `${process.env.NEXT_PUBLIC_API_URL}/audit-logs${params.toString() ? `?${params.toString()}` : ""}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,

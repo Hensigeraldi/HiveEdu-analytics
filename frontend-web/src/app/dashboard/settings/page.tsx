@@ -60,7 +60,7 @@ export default function SettingsPage() {
         setIsLoadingProfile(true);
         setErrorMessage("");
 
-        const response = await fetch("http://localhost:3000/users/me", {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/users/me`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -113,7 +113,7 @@ export default function SettingsPage() {
         payload.password = newPassword;
       }
 
-      const response = await fetch("http://localhost:3000/users/me", {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/users/me`, {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",

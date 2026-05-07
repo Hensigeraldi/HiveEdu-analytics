@@ -7,7 +7,7 @@ export default function InterventionBadge({ userId }: { userId: string }) {
     const fetchStatus = async () => {
       try {
         const token = localStorage.getItem('token');
-        const res = await fetch(`http://localhost:3000/interventions/user/${userId}`, {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/interventions/user/${userId}`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         if (res.ok) {

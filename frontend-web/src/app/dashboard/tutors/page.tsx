@@ -146,7 +146,7 @@ export default function TutorsPage() {
         setIsLoading(true);
         setPageError("");
 
-        const tutorsResponse = await fetch("http://localhost:3000/analytics/tutors", {
+        const tutorsResponse = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/analytics/tutors`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },

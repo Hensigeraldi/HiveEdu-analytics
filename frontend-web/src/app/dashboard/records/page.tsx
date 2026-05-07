@@ -254,12 +254,12 @@ export default function AcademicRecordsPage() {
       setIsLoadingUsers(true);
       setPageError("");
 
-      const usersEndpoint =
+     const usersEndpoint =
         decoded.role === "ADMIN"
-          ? "http://localhost:3000/users"
+          ? `${process.env.NEXT_PUBLIC_API_URL}/users`
           : decoded.role === "TEACHER"
-            ? "http://localhost:3000/users/role/user"
-            : "http://localhost:3000/users/me";
+            ? `${process.env.NEXT_PUBLIC_API_URL}/users/role/user`
+            : `${process.env.NEXT_PUBLIC_API_URL}/users/me`;
 
       const response = await fetch(usersEndpoint, {
         headers: {
@@ -326,7 +326,7 @@ export default function AcademicRecordsPage() {
     }
 
     try {
-      const response = await fetch(`http://localhost:3000/users/${userId}/features`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/users/${userId}/features`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -352,7 +352,7 @@ export default function AcademicRecordsPage() {
 
     try {
       setIsLoadingRecords(true);
-      const response = await fetch(`http://localhost:3000/records/user/${userId}`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/records/user/${userId}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -512,8 +512,8 @@ export default function AcademicRecordsPage() {
       setIsSubmitting(true);
       const response = await fetch(
         editingRecordId
-          ? `http://localhost:3000/records/${editingRecordId}`
-          : "http://localhost:3000/records",
+          ? `${process.env.NEXT_PUBLIC_API_URL}/records/${editingRecordId}`
+          : `${process.env.NEXT_PUBLIC_API_URL}/records`,
         {
           method: editingRecordId ? "PATCH" : "POST",
           headers: {

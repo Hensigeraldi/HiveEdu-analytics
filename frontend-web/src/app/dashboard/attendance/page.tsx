@@ -114,12 +114,11 @@ export default function AttendancePage() {
       setPageError("");
 
       if (decoded.role === "USER") {
-        const response = await fetch("http://localhost:3000/users/me", {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/users/me`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
         });
-
         if (!response.ok) {
           throw new Error("Failed to fetch current user.");
         }
@@ -130,7 +129,7 @@ export default function AttendancePage() {
         return;
       }
 
-      const response = await fetch("http://localhost:3000/users/role/user", {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/users/role/user`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -186,7 +185,7 @@ export default function AttendancePage() {
     try {
       setIsLoadingAttendance(true);
 
-      const response = await fetch(`http://localhost:3000/attendance/user/${userId}`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/attendance/user/${userId}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -258,7 +257,7 @@ export default function AttendancePage() {
     }
 
     try {
-      const response = await fetch(`http://localhost:3000/attendance/${attendanceId}`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/attendance/${attendanceId}`, {
         method: "DELETE",
         headers: {
           Authorization: `Bearer ${token}`,
@@ -302,8 +301,8 @@ export default function AttendancePage() {
 
       const response = await fetch(
         editingAttendanceId
-          ? `http://localhost:3000/attendance/${editingAttendanceId}`
-          : "http://localhost:3000/attendance",
+          ? `${process.env.NEXT_PUBLIC_API_URL}/attendance/${editingAttendanceId}`
+          : `${process.env.NEXT_PUBLIC_API_URL}/attendance`,
         {
           method: editingAttendanceId ? "PATCH" : "POST",
           headers: {
