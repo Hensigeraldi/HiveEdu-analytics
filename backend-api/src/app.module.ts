@@ -39,6 +39,9 @@ import { InterventionsModule } from './interventions/interventions.module.js';
         username: config.get<string>('DB_USERNAME', 'postgres'),
         password: config.get<string>('DB_PASSWORD', ''),
         database: config.get<string>('DB_NAME', 'hiveedu_eraport'),
+        ssl: {
+          rejectUnauthorized: false,
+        },
         autoLoadEntities: true,
         synchronize: config.get<string>('APP_ENV') === 'development',
       }),
