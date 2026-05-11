@@ -66,7 +66,7 @@ export default function LoginPage() {
       <div className="login-card relative z-20 w-full max-w-md mx-4 sm:mx-0 p-8 sm:p-10 bg-white/[0.02] backdrop-blur-3xl border border-white/10 rounded-2xl shadow-2xl">
         <div className="mb-10 text-center">
           <h1 className="text-3xl font-medium login-brand-text tracking-tight">
-            HiveEdu <span className="font-normal text-blue-500">Analytics</span>
+            HiveEdu semakin keren<span className="font-normal text-blue-500">Analytics</span>
           </h1>
           <p className="mt-3 text-zinc-500 text-sm">
             Enter your credentials to access the platform
