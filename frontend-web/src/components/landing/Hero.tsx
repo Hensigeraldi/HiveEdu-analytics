@@ -38,7 +38,7 @@ export default function Hero() {
       <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center flex flex-col items-center">
         <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white dark:bg-[#1B2540] text-[#E8890C] dark:text-[#FFB627] text-sm font-bold mb-8 border-2 border-[#FFE1A8] dark:border-[#2E3B5C] shadow-[0_3px_0_0_#FFE1A8] dark:shadow-[0_3px_0_0_#2E3B5C] -rotate-1">
           <Sparkles size={16} />
-          <span>Bukan software sekolah yang bikin boring dan ngantuk 🐝</span>
+          <span>Bukan software sekolah yang bikin boring 🐝</span>
         </div>
 
         <h1 className="font-display font-semibold text-5xl md:text-7xl tracking-tight text-[#1B2540] dark:text-white max-w-4xl mb-6 leading-[1.05]">
@@ -91,7 +91,7 @@ export default function Hero() {
               </div>
             ))}
           </div>
-          <span>Dipercaya 500+ sekolah di seluruh Indonesia</span>
+          <span>Dipercaya 500+ sekolah di seluruh Indonesia Tervalidasi</span>
         </div>
       </div>
     </section>
