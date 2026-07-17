@@ -60,7 +60,7 @@ export default function Hero() {
 
         <p className="text-lg md:text-xl text-[#4A4438] dark:text-zinc-400 max-w-2xl mb-10 leading-relaxed">
           HiveEdu merapikan administrasi, memantau perkembangan siswa, dan menjaga
-          komunikasi guru-orang tua tetap lancar — semuanya dari satu tempat yang
+          komunikasi guru-orang tua tetap lancar jaya — semuanya dari satu tempat yang
           enak dipakai sehari-hari.
         </p>
 
